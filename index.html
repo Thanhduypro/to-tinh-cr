@@ -1,0 +1,141 @@
+Website By Duy Thanh
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gửi đến người tớ thương</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff0f5;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #content {
+      font-size: 24px;
+      color: #d6336c;
+      text-align: center;
+      max-width: 700px;
+      padding: 20px;
+      display: none;
+    }
+
+    #startBtn {
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #d6336c;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .line {
+      opacity: 0;
+      transition: opacity 1s ease-in;
+      margin: 10px 0;
+    }
+
+    .line.visible {
+      opacity: 1;
+    }
+
+    #button-container {
+      margin-top: 30px;
+      display: none;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      margin: 0 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #yesBtn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #dc3545;
+      color: white;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <button id="startBtn">Bắt đầu</button>
+  <div id="content"></div>
+
+  <div id="button-container">
+    <button id="yesBtn" class="btn">Đồng ý 💘</button>
+    <button id="noBtn" class="btn">Từ chối 😢</button>
+  </div>
+
+  <script>
+    const lines = [
+      "Chào cậu, người tớ luôn nghĩ đến mỗi ngày 🌸",
+      "Tớ đã suy nghĩ rất nhiều trước khi viết những dòng này...",
+      "Tớ thích cậu, thật sự rất thích cậu 💖",
+      "Tớ muốn được ở bên cậu, quan tâm và chia sẻ mọi thứ cùng cậu 🥺",
+      "Nếu cậu cũng có chút cảm xúc giống tớ...",
+      "Thì... chúng ta hãy cho nhau một cơ hội nhé? 💌",
+      "Tớ đợi câu trả lời từ cậu..."
+    ];
+
+    const startBtn = document.getElementById('startBtn');
+    const content = document.getElementById('content');
+    const buttonContainer = document.getElementById('button-container');
+    const noBtn = document.getElementById('noBtn');
+
+    startBtn.addEventListener('click', () => {
+      startBtn.style.display = 'none';
+      content.style.display = 'block';
+
+      lines.forEach((text, index) => {
+        setTimeout(() => {
+          const line = document.createElement('div');
+          line.className = 'line';
+          line.textContent = text;
+          content.appendChild(line);
+          setTimeout(() => {
+            line.classList.add('visible');
+          }, 100);
+        }, index * 2000);
+      });
+
+      // Hiện nút sau khi hết lời tỏ tình
+      setTimeout(() => {
+        buttonContainer.style.display = 'flex';
+      }, lines.length * 2000 + 1000);
+    });
+
+    // Nút "Từ chối" chạy loạn
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
+
+    // Khi nhấn "Đồng ý"
+    document.getElementById('yesBtn').addEventListener('click', () => {
+      content.innerHTML = "<div class='line visible'>🎉 Tớ vui lắm! Cảm ơn cậu vì đã đồng ý 💘</div>";
+      buttonContainer.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
